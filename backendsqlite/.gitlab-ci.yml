@@ -1,0 +1,85 @@
+stages:     #Les etapes associés au CI/CD # Les étapes associées au projet.
+  - lint    #Vérification du code
+  - badges  #Création des badges
+  - test    #On réalise les tests avec cypress
+# - build   #On fait le minify pour construire  les pages
+  - deploy  #On met les fichiers dans le dossier public
+
+
+lint-js:      #Vérificaition de la qualité du code js
+  stage: lint
+  tags:
+    - docker
+  image: node
+  script: 
+    - npm init @eslint/config 
+    - ./scripts/lint_js.sh  #Script qui éffectue les vérifications
+  artifacts:
+    paths:  #Le rapport est diponible à la fin
+      - lintjs-report.out
+  only:
+    changes:
+      - "*.js"
+
+       
+jobcypress:
+  stage: test
+  tags:
+    - docker  # Comme on utilise une image pour isoler on doit utiliser un runner docker 
+  image: cypress/base:16.18.1 # Image fournie par cypress avec ce qu'il faut
+  script:
+    - npm i # Installe ce qui est décrit dans package.json
+    - npm run startdev # Lance le serveur
+    - npx cypress run >> cypresstest_report.out # Lance les tests
+    - kill -9 $(ps | grep node | awk '{print $1}') # Cette ligne pourrait permettre de tuer serve
+  artifacts:
+      paths:
+        - cypresstest_report.out
+  only:
+      changes:
+        - "*.js"
+
+createbadge: 
+  stage: badges
+  tags: 
+    - docker
+  image: python
+  script:
+    - pip install anybadge
+    - ./scripts/generateBadges.sh  # Script de génération des badges
+  dependencies:         # Les badges sont générés à partir des rapports s'ils sont disponible
+        - lint-js
+        - jobcypress
+  artifacts:
+    paths:  # Ces fichiers sont générés par le script genereBadges.sh
+    - badge_cypress.svg  # et  mis à disposition pour mise en évidence sur la page du dépôt
+    - badge_eslint.svg
+  when: always    # Et quoiqu'il arrive la génération des badges devra se faire.
+
+
+# Job pour exposer l'API sur Scalingo
+# URL d'exposition de l'API : https://monAppliChezScalingo.osc-fr1.scalingo.io/
+
+scalingo:
+  stage: deploy
+  tags:
+    - docker
+  variables:
+    # SCALINGO_API_TOKEN # variable à ne pas définir en clair ici (cf instructions à la fin du .gitlab-ci.yml ci-dessous)
+    SCALINGO_APP_NAME: monAppliChezScalingo # le nom de votre appli chez scalingo
+    SCALINGO_REGION: osc-fr1 # l'instance de scalingo sur laquelle votre appli est déployée
+    GIT_DEPTH: 0
+    PROJECT_DIR: backendsqlite # Le répertoire dans le dépôt où est le backend
+  image: ruby:3.1.3 # car dpl est codé en Ruby
+  script:
+    - gem install dpl --pre # gem est le gestionnaire de paquets pour Ruby
+    - curl -O https://cli-dl.scalingo.com/install && bash install # scalingo CLI est installé
+    - scalingo --app=$SCALINGO_APP_NAME env-set PROJECT_DIR=$PROJECT_DIR # Pour indiquer sur le dépôt distant où est le backend (s'il est à la racine du projet ceci est facultatif)
+    - dpl --provider=scalingo --app=$SCALINGO_APP_NAME --api-token=$SCALINGO_API_TOKEN --region=$SCALINGO_REGION --branch=refs/heads/main
+    # la variable SCALINGO_API_TOKEN contient le token que vous avez généré chez scalingo via le menu `User Settings > API tokens`
+    #
+    # Afin que la variable SCALINGO_API_TOKEN n'apparaissent pas en clair sur notre dépôt public gitlab, on définit cette variable via 
+    # le menu `Settings > CI/CD > Variables` et on la masque dans le résultat des logs des jobs en lui appliquant la propriété "Masked"
+    # Plus de détails sur https://docs.gitlab.com/ee/ci/variables/index.html.
+
+
