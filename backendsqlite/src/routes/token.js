@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const user = require('../controllers/user.js')
+const token = require('../controllers/token.js')
 
-router.get('/users', user.getUsers)
-router.post('/users', user.newUser)
+router.get('/getjwtDeleg/:user',token.getToken)
+
+router.get('/whoami',token.verifieTokenPresent,token.verifieUser,token.whoami)
 
 // router.get('/api/users/:email', user.getUserByEmail)
 // router.put('/api/users', user.updateUser)

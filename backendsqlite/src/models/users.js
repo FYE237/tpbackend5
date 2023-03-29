@@ -12,18 +12,18 @@ const users = db.define('users', {
       is: /^[a-z\-'\s]{1,128}$/i
     }
   },
-  email: {
-    type: Sequelize.STRING(128),
-    unique: true,
-    validate: {
-      isEmail: true
-    }
-  },
-  passhash: {
-    type: Sequelize.STRING(60),
-    validate: {
-      is: /^[0-9a-z\\/$.]{60}$/i
-    }
-  }
+  // email: {
+  //   type: Sequelize.STRING(128),
+  //   unique: true,
+  //   validate: {
+  //     isEmail: true
+  //   }
+  // },
+  // passhash: {
+  //   type: Sequelize.STRING(60),
+  //   validate: {
+  //     is: /^[0-9a-z\\/$.]{60}$/i
+  //   }
+  // }
 }, { timestamps: false })
 module.exports = users
