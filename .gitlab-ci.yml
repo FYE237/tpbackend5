@@ -13,6 +13,7 @@ lint-js:      #Vérificaition de la qualité du code js
   image: node
   script: 
     - npm init @eslint/config 
+    - cd backendsqlite/
     - ./scripts/lint_js.sh  #Script qui éffectue les vérifications
   artifacts:
     paths:  #Le rapport est diponible à la fin
@@ -28,6 +29,7 @@ jobcypress:
     - docker  # Comme on utilise une image pour isoler on doit utiliser un runner docker 
   image: cypress/base:16.18.1 # Image fournie par cypress avec ce qu'il faut
   script:
+    - cd backendsqlite/
     - npm i # Installe ce qui est décrit dans package.json
     - npm run startdev # Lance le serveur
     - npx cypress run >> cypresstest_report.out # Lance les tests
@@ -46,6 +48,7 @@ createbadge:
   image: python
   script:
     - pip install anybadge
+    - cd backendsqlite/
     - ./scripts/generateBadges.sh  # Script de génération des badges
   dependencies:         # Les badges sont générés à partir des rapports s'ils sont disponible
         - lint-js
