@@ -2,7 +2,6 @@ stages:     #Les etapes associés au CI/CD # Les étapes associées au projet.
   - lint    #Vérification du code
   - badges  #Création des badges
   - test    #On réalise les tests avec cypress
-# - build   #On fait le minify pour construire  les pages
   - deploy  #On met les fichiers dans le dossier public
 
 
