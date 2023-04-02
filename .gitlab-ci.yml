@@ -50,7 +50,7 @@ createbadge:
     - cd backendsqlite/
     - ./scripts/generateBadges.sh  # Script de génération des badges
   dependencies:         # Les badges sont générés à partir des rapports s'ils sont disponible
-        - lint-js
+        - lint
         - test
   artifacts:
     paths:  # Ces fichiers sont générés par le script genereBadges.sh
