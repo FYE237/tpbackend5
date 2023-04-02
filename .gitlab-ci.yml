@@ -85,3 +85,4 @@ scalingo:
     # Plus de détails sur https://docs.gitlab.com/ee/ci/variables/index.html.
 
 
+# Le projet est déployé sur : https://tpbackend5.osc-fr1.scalingo.io/frontend/Exercice-50.html
