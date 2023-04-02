@@ -1,6 +1,6 @@
 /* Base URL of the web-service for the current user and access token */
 // const user = 'augera';
-const backend = 'http://localhost:3000';
+const backend = "https://tpbackend5.osc-fr1.scalingo.io"//'http://localhost:3000';
 const token = "eyJhbGciOiJIUzI1NiJ9.ZmV6ZXV5b2U.9FOe8MoLypU8ECNdYBEqERNR79csqG0_2U01Gq2h8_g"
 const wsBase = `${backend}/bmt/fezeuyoe/`; // replace USER by your login used to obtain TOKEN
 
