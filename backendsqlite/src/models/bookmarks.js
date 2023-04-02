@@ -13,19 +13,19 @@ const bookmarks = db.define('bookmarks', {
     type: Sequelize.STRING(255),
     allowNull:false
   },
-  desciption: {
+  description: {
     type:Sequelize.STRING(255),
     allowNull:false
   },
   link:{
     type:Sequelize.STRING(255),
     allowNull:false
-  }
+  },
 }, { timestamps: false })
 
 
 bookmarks.belongsTo(users,{
-  foreignKey: 'user_id'
+  foreignKey: {name:'user_id'}
 })
 
 

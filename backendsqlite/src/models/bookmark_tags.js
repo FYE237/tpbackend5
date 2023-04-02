@@ -11,11 +11,11 @@ const bookmark_tags = db.define('bookmark_tags', {
 
 
 bookmark_tags.belongsTo(bookmarks,{
-  foreignKey: 'bookmark_id'
+  foreignKey: {name:'bookmark_id'}
 })
 
 bookmark_tags.belongsTo(tags,{
-  foreignKey:'tag_id'
+  foreignKey:{name:'tag_id'}
 })
 
 

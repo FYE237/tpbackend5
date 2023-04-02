@@ -1,40 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>My bookmarks on-line</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link type="text/css" href="Exercice-50.css" rel="StyleSheet">
-<script src="Exercice-50.js" type="text/javascript"></script>
+	<title>My bookmarks on-line</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link type="text/css" href="Exercice-50.css" rel="StyleSheet">
+	<script src="Exercice-50.js" type="text/javascript"></script>
 </head>
 <body>
-  <h1><span class="identity"></span>'s Bookmarks</h1>
+<h1><span class="identity"></span>'s Bookmarks</h1>
 
-  <ul id="menu">
+<ul id="menu">
 	<li class="bookmarks">Bookmarks</li>
 	<li class="tags">Tags</li>
-  </ul>
+</ul>
 
-  <div id="contents">
-  <form>
-	<div id="models">
-		<div class="model bookmark">
-			<h2>Title</h2>
-			<a href="link" title="link">link</a>
-			<div class="description">Description</div>
-			<ul class="tags"></ul>
+<div id="contents">
+	<form>
+		<div id="models">
+			<div class="model bookmark">
+				<h2>Title</h2>
+				<a href="link" title="link">link</a>
+				<div class="description">Description</div>
+				<ul class="tags"></ul>
+			</div>
+			<div class="model tag">
+				<h2>Name</h2>
+			</div>
 		</div>
-		<div class="model tag">
-			<h2>Name</h2>
+		<div id="items">
 		</div>
-	</div>
-	<div id="items">
-	</div>
-	<div id="add">
-		<div class="tag">
-			<input name="name" type="text"><input id="addTag" name="addTag" type="button" value="New tag">
+		<div id="add">
+			<div class="tags">
+				<input name="name" type="text"><input id="addTag" name="addTag" type="button" value="New tag">
+			</div>
+			<div class="bookmarks">
+				<form>
+					<fieldset>
+						<ul>
+							<li>
+								<label for="bookmarkTitle">Name</label><input type="text" value="Bookmark Title" id="bookmarkTitle">
+								<label for="bookmarkLink">Link</label><input type="text" maxlength="128" value="link" id="bookmarkLink">
+							</li>
+							<li>
+								<label for="bookmarkDescription">Description</label><textarea rows="3" cols="20" id="bookmarkDescription"></textarea>
+							</li>
+							<li>
+								<label for="tagsSelection">Quels sont les tags concernés (sélection multiple possible)</label>
+								<select multiple id="tagsSelection"><!--Se remplira avec le fichier js-->
+
+								</select>
+							</li>
+						</ul>
+						<input id="addBookmark" type="button" value="New bookmark">
+					</fieldset>
+				</form>
+			</div>
 		</div>
-	</div>
-  </form>
-  </div>
+	</form>
+</div>
 </body>
 </html>
+

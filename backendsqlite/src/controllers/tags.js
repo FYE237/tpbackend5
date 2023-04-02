@@ -85,7 +85,7 @@ module.exports = {
    // #swagger.parameters['obj'] = { in: 'body', description:'Name ', schema: { $name: 'Javascript'}}
 
      const name = (JSON.parse(req.body.data)).name
-    //  console.log(name.data)
+    // console.log(name.data)
      const user_id = req.id
       // await tagModel.create({ name,user_id})
 

@@ -16,12 +16,16 @@ const bcrypt = require('bcrypt');
   // // Initialise la base avec quelques données
   // const passhash = await bcrypt.hash('123456', 2)
   // console.log(passhash)
-  await userModel.create({
-    name: 'Sebastien Viardot'
-  })
+  // await userModel.create({
+  //   name: 'Sebastien Viardot'
+  // })
   await userModel.create({
     name: 'fezeuyoe'
   })
+  // await tagsModel.create({
+  //   name:'JS' 
+  // })
+
   // Ajouter ici le code permettant d'initialiser par défaut la base de donnée
   await require ('../models/bookmarks.js').sync({force:true})
   await require ('../models/tags.js').sync({force:true})

@@ -17,7 +17,7 @@ const tags = db.define('tags', {
 
 
 tags.belongsTo(users,{
-  foreignKey: 'user_id'
+  foreignKey: {name:'user_id'}
 })
 
 
