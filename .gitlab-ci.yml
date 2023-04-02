@@ -51,7 +51,7 @@ createbadge:
     - ./scripts/generateBadges.sh  # Script de génération des badges
   dependencies:         # Les badges sont générés à partir des rapports s'ils sont disponible
         - lint-js
-        - jobcypress
+        - test
   artifacts:
     paths:  # Ces fichiers sont générés par le script genereBadges.sh
     - badge_cypress.svg  # et  mis à disposition pour mise en évidence sur la page du dépôt
